@@ -1,5 +1,3 @@
-# This is a production version of the Bigcapital docker-compose.yml file.
-
 version: '3.3'
 
 services:
@@ -42,7 +40,6 @@ services:
     networks:
       - bigcapital_network
     environment:
-      # Mail
       - MAIL_HOST=${MAIL_HOST}
       - MAIL_USERNAME=${MAIL_USERNAME}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -50,64 +47,33 @@ services:
       - MAIL_SECURE=${MAIL_SECURE}
       - MAIL_FROM_NAME=${MAIL_FROM_NAME}
       - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
-
-      # Database
       - DB_HOST=mysql
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_CHARSET=${DB_CHARSET}
-
-      # System database
       - SYSTEM_DB_NAME=${SYSTEM_DB_NAME}
-
-      # Tenants databases
       - TENANT_DB_NAME_PERFIX=${TENANT_DB_NAME_PERFIX}
-
-      # Authentication
       - JWT_SECRET=${JWT_SECRET}
-
-      # MongoDB
       - MONGODB_DATABASE_URL=mongodb://mongo/bigcapital
-
-      # Application
       - BASE_URL=${BASE_URL}
-
-      # Agendash
       - AGENDASH_AUTH_USER=${AGENDASH_AUTH_USER}
       - AGENDASH_AUTH_PASSWORD=${AGENDASH_AUTH_PASSWORD}
-
-      # Sign-up restrictions
       - SIGNUP_DISABLED=${SIGNUP_DISABLED}
       - SIGNUP_ALLOWED_DOMAINS=${SIGNUP_ALLOWED_DOMAINS}
       - SIGNUP_ALLOWED_EMAILS=${SIGNUP_ALLOWED_EMAILS}
-
-      # Sign-up email confirmation
       - SIGNUP_EMAIL_CONFIRMATION=${SIGNUP_EMAIL_CONFIRMATION}
-
-      # Gotenberg (Pdf generator)
       - GOTENBERG_URL=${GOTENBERG_URL}
       - GOTENBERG_DOCS_URL=${GOTENBERG_DOCS_URL}
-
-      # Exchange Rate
       - EXCHANGE_RATE_SERVICE=${EXCHANGE_RATE_SERVICE}
-      - OPEN_EXCHANGE_RATE_APP_ID-${OPEN_EXCHANGE_RATE_APP_ID}
-
-      # Bank Sync
-      - BANKING_CONNECT=${BANKING_CONNECT}
-
-      # Plaid
+      - OPEN_EXCHANGE_RATE_APP_ID=${OPEN_EXCHANGE_RATE_APP_ID}
       - PLAID_ENV=${PLAID_ENV}
       - PLAID_CLIENT_ID=${PLAID_CLIENT_ID}
       - PLAID_SECRET=${PLAID_SECRET}
       - PLAID_LINK_WEBHOOK=${PLAID_LINK_WEBHOOK}
-
-      # Lemon Squeez
       - LEMONSQUEEZY_API_KEY=${LEMONSQUEEZY_API_KEY}
       - LEMONSQUEEZY_STORE_ID=${LEMONSQUEEZY_STORE_ID}
       - LEMONSQUEEZY_WEBHOOK_SECRET=${LEMONSQUEEZY_WEBHOOK_SECRET}
       - HOSTED_ON_BIGCAPITAL_CLOUD=${HOSTED_ON_BIGCAPITAL_CLOUD}
-
-      # New Relic matrics tracking.
       - NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=${NEW_RELIC_DISTRIBUTED_TRACING_ENABLED}
       - NEW_RELIC_LOG=${NEW_RELIC_LOG}
       - NEW_RELIC_AI_MONITORING_ENABLED=${NEW_RELIC_AI_MONITORING_ENABLED}
@@ -115,8 +81,6 @@ services:
       - NEW_RELIC_SPAN_EVENTS_MAX_SAMPLES_STORED=${NEW_RELIC_SPAN_EVENTS_MAX_SAMPLES_STORED}
       - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
       - NEW_RELIC_APP_NAME=${NEW_RELIC_APP_NAME}
-
-      # S3
       - S3_REGION=${S3_REGION}
       - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
@@ -129,13 +93,11 @@ services:
       context: ./
       dockerfile: docker/migration/Dockerfile
     environment:
-      # Database
       - DB_HOST=mysql
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_CHARSET=${DB_CHARSET}
       - SYSTEM_DB_NAME=${SYSTEM_DB_NAME}
-      # Tenants databases
       - TENANT_DB_NAME_PERFIX=${TENANT_DB_NAME_PERFIX}
     depends_on:
       - mysql
@@ -189,7 +151,6 @@ services:
     networks:
       - bigcapital_network
 
-# Volumes
 volumes:
   mysql:
     name: bigcapital_prod_mysql
@@ -203,7 +164,7 @@ volumes:
     name: bigcapital_prod_redis
     driver: local
 
-# Networks
 networks:
   bigcapital_network:
     driver: bridge
+

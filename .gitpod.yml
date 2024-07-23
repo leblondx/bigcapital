@@ -11,12 +11,12 @@ tasks:
       pnpm run dev
 
 ports:
-  - port: 4000
+  - port: 4002
     visibility: public
     onOpen: open-preview
-  - port: 3000
+  - port: 3002
     visibility: public
     onOpen: ignore
-  - port: 3306
+  - port: 3326
     visibility: public
     onOpen: ignore
